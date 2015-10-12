@@ -313,7 +313,7 @@ static void otaRecvCb(void *arg, char *data, unsigned short len) {
     oc->rxBufFill = 0;
   }
 
-  while (len > 0) {
+  while (1) {
     if (oc->rxBufFill == OTA_BUFF_SZ) goto error; // buffer full, disconnect
 
     // copy as much as we can into the rx buffer
@@ -356,12 +356,11 @@ static void otaRecvCb(void *arg, char *data, unsigned short len) {
     if (num > 0) {
       os_memmove(oc->rxBuffer, oc->rxBuffer + num, oc->rxBufFill-num);
       oc->rxBufFill -= num;
-    } else if (num < 0) {
-      oc->closing = true;
-      return; // disregard anything else we have have here...
+    } else {
+      if (num < 0) oc->closing = true;
+      return;
     }
   }
-
   return;
 
 error:

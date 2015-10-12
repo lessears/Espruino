@@ -19,7 +19,7 @@
 #define JS_FS_DATA_NAME JS_HIDDEN_CHAR_STR"FSd" // the data in each file
 #define JS_FS_OPEN_FILES_NAME JS_HIDDEN_CHAR_STR"FSo" // the list of open files
 
-#if !defined(LINUX) && !defined(USE_FILESYSTEM_SDIO)
+#if !defined(LINUX) && !defined(USE_FILESYSTEM_SDIO) && !defined(USE_FILESYSTEM_ESP8266)
 #define SD_CARD_ANYWHERE
 #endif
 

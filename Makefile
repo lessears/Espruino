@@ -494,6 +494,8 @@ else ifdef ESP8266_4MB
 # second 512KB for firmware; and then we have 3MB-16KB for SPIFFS
 EMBEDDED=1
 USE_NET=1
+USE_FILESYSTEM=1
+USE_FILESYSTEM_ESP8266=1
 BOARD=ESP8266_OTA
 # Enable link-time optimisations (inlining across files) but don't go beyond -O2 'cause of
 # code size explosion, also -DLINK_TIME_OPTIMISATION leads to too big a firmware
@@ -511,6 +513,8 @@ else ifdef ESP8266_2MB
 # esp8266 with 2MB flash chip with OTA support: same as 4MB except we have 1MB-16KB for SPIFFS
 EMBEDDED=1
 USE_NET=1
+USE_FILESYSTEM=1
+USE_FILESYSTEM_ESP8266=1
 BOARD=ESP8266_OTA
 # Enable link-time optimisations (inlining across files)
 OPTIMIZEFLAGS+=-O3 -std=gnu11 -fgnu89-inline -flto -fno-fat-lto-objects -Wl,--allow-multiple-definition
@@ -781,6 +785,10 @@ DEFINES += -DUSE_FILESYSTEM_SDIO
 SOURCES += \
 libs/filesystem/fat_sd/sdio_diskio.c \
 libs/filesystem/fat_sd/sdio_sdcard.c
+else ifdef USE_FILESYSTEM_ESP8266
+DEFINES += -DUSE_FILESYSTEM_ESP8266 -DFAT_BASE=0x100
+SOURCES += \
+libs/filesystem/fat_sd/esp8266_diskio.c
 else #USE_FILESYSTEM_SDIO
 SOURCES += \
 libs/filesystem/fat_sd/spi_diskio.c

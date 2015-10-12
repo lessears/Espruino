@@ -138,6 +138,8 @@
 / Drive/Volume Configurations
 /---------------------------------------------------------------------------*/
 
+#ifndef USE_FILESYSTEM_ESP8266
+
 #define _VOLUMES	8
 /* Number of volumes (logical drives) to be used. */
 
@@ -149,6 +151,12 @@
 /  Number of items must be equal to _VOLUMES. Valid characters for the drive ID strings
 /  are: 0-9 and A-Z. */
 
+#else
+
+#define _VOLUMES 1
+#define _STR_VOLUME_ID 0
+
+#endif
 
 #define	_MULTI_PARTITION	0	/* 0:Single partition, 1:Enable multiple partition */
 /* By default(0), each logical drive number is bound to the same physical drive number
@@ -166,9 +174,13 @@
 /  GET_SECTOR_SIZE command must be implemented to the disk_ioctl() function. */
 
 
+#ifndef USE_FILESYSTEM_ESP8266
 #define	_USE_ERASE	0	/* 0:Disable or 1:Enable */
 /* To enable sector erase feature, set _USE_ERASE to 1. Also CTRL_ERASE_SECTOR command
 /  should be added to the disk_ioctl() function. */
+#else
+#define _USE_ERASE 1
+#endif
 
 
 #define _FS_NOFSINFO	0	/* 0 to 3 */
