@@ -39,6 +39,8 @@ void   jswrap_ESP8266_wifi_reset();
 
 void   jswrap_ESP8266_neopixelWrite(Pin pin, JsVar *jsArrayOfData);
 
+void   jswrap_ESP8266_deepSleep(JsVar *jsMicros);
+
 uint32_t crc32(uint8_t *buf, uint32_t len);
 
 #endif /* TARGETS_ESP8266_JSWRAP_ESP8266_H_ */

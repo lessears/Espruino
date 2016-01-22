@@ -457,3 +457,29 @@ void jswrap_ESP8266_neopixelWrite(Pin pin, JsVar *jsArrayOfData) {
 
 #endif
 }
+
+
+/*JSON{
+  "type"     : "staticmethod",
+  "class"    : "ESP8266",
+  "name"     : "deepSleep",
+  "generate" : "jswrap_ESP8266_deepSleep",
+  "params"   : [
+    ["micros", "JsVar", "Number of microseconds to sleep."]
+  ]
+
+}*/
+
+void   jswrap_ESP8266_deepSleep(JsVar *jsMicros) {
+
+    jsiConsolePrintf("In deepSleep()\n");
+    if (!jsvIsInt(jsMicros)) {
+    jsExceptionHere(JSET_ERROR, "Invalid microseconds.");
+         return;
+    }
+    int sleepTime = jsvGetInteger(jsMicros);
+    jsiConsolePrintf("sleepTime: %d\n", sleepTime);
+
+    system_deep_sleep(sleepTime);
+
+}
