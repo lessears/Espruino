@@ -472,13 +472,12 @@ void jswrap_ESP8266_neopixelWrite(Pin pin, JsVar *jsArrayOfData) {
 
 void   jswrap_ESP8266_deepSleep(JsVar *jsMicros) {
 
-    jsiConsolePrintf("In deepSleep()\n");
+    //jsiConsolePrintf("In deepSleep()\n");
     if (!jsvIsInt(jsMicros)) {
     jsExceptionHere(JSET_ERROR, "Invalid microseconds.");
          return;
     }
     int sleepTime = jsvGetInteger(jsMicros);
-    jsiConsolePrintf("sleepTime: %d\n", sleepTime);
 
     system_deep_sleep(sleepTime);
 
